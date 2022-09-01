@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo hown vincent:staff *
+chown vincent:staff *
