@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Script displays the time for 12 horus and 59 minutes:
+#   hours from 0 to 12
+#   minutes from 1 to 59
+hours=0
+minute=1
+
+while [ $hours -le 23 ]
+do
+  echo "Hour: $hours"
+  for ((minute=1; minute<=59; minute++))
+  do
+    echo $minute
+    if [ $hours -eq 1 ] && [ $minute -eq 9 ]
+    then
+      break 2
+    fi
+  done
+  hours=$((hours+1))
+done
