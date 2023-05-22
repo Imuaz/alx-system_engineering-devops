@@ -5,16 +5,14 @@
 hours=0
 minute=1
 
-while [ $hours -le 23 ]
+while [ $hours -le 12 ]
 do
   echo "Hour: $hours"
-  for ((minute=1; minute<=59; minute++))
+  minute=1
+  while [ $minute -le 59 ]
   do
-    echo $minute
-    if [ $hours -eq 1 ] && [ $minute -eq 9 ]
-    then
-      break 2
-    fi
+    echo "$minute"
+    minute=$((minute+1))
   done
   hours=$((hours+1))
 done
