@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Script displays the contents of the current directory in list format.
 #   Only displays the part of the name after the first dash
-for file in *; do
-    if [[ -f $file && ! ${file:0:1} == "." ]]; then
-        name=$(echo "$file" | cut -d '-' -f2)
-        echo "- $name"
-    fi
+dir_cont=0
+List=$(ls)
+for dir_cont in $List
+do
+    echo "$dir_cont" | cut -d "-" -f2
 done
