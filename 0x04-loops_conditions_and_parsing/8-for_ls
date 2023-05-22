@@ -3,7 +3,7 @@
 #   Only displays the part of the name after the first dash
 for file in *; do
     if [[ -f $file && ! ${file:0:1} == "." ]]; then
-        name=${file#*-}
+        name=$(echo "$file" | cut -d '-' -f2)
         echo "- $name"
     fi
 done
