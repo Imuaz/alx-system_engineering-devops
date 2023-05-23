@@ -118,13 +118,14 @@ The project covered several important aspects related to processes and signals. 
   - the code uses the Betty style. It may be checked using `betty-style.pl` and `betty-doc.pl`
   - When the code is done creating the parent process and the zombies,it uses the function bellow
   ```
-int infinite_while(void)
-{
-    while (1)
-    {
-        sleep(1);
-    }
-    return (0);
-}
-```
+  int infinite_while(void)
+  {
+      while (1)
+      {
+          sleep(1);
+      }
+      return (0);
+  }
+  ```
+
   :+1:
