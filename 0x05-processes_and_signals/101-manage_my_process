@@ -16,37 +16,23 @@
 #     5. Displays "manage_my_process restarted"
 #   If any other or no arguments are passed, displays
 #+  "Usage: manage_my_process {start|stop|restart}"
-
-COMMAND="./manage_my_process"
-PID_FILE="/var/run/my_process.pid"
-
-start_process() {
-  $COMMAND &
-  echo $$ > "$PID_FILE"
-  echo "manage_my_process started"
-}
-
-stop_process() {
-  pkill -f "$COMMAND"
-  rm -f "$PID_FILE"
-  echo "manage_my_process stopped"
-}
-
-restart_process() {
-  stop_process
-  start_process
-  echo "manage_my_process restarted"
-}
-
 case "$1" in
-  "start")
-    start_process
+  start)
+    ./manage_my_process &
+    echo $$ > /var/run/my_process.pid
+    echo "manage_my_process started"
     ;;
-  "stop")
-    stop_process
+  stop)
+    kill "$(pgrep -f /manage_my_process)"
+    rm /var/run/my_process.pid
+    echo "manage_my_process stopped"
     ;;
-  "restart")
-    restart_process
+  restart)
+    kill "$(pgrep -f /manage_my_process)"
+    rm /var/run/my_process.pid
+    ./manage_my_process &
+    echo $$ > /var/run/my_process.pid
+    echo "manage_my_process restarted"
     ;;
   *)
     echo "Usage: manage_my_process {start|stop|restart}"
