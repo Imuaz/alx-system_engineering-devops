@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # Listens on port 98 on localhost.
 
-socat TCP-LISTEN:98,reuseaddr,fork -
+ncat -l -p 98 -k -c "echo 'Connected!'" 2>/dev/null
