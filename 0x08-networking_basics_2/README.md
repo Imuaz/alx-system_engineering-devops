@@ -2,7 +2,7 @@
 
 **INTRODUCTION**
 
-The project covered various topics related to networking and system configuration. It included explanations of concepts such as localhost/127.0.0.1, 0.0.0.0, and /etc/hosts. The project also covered how to display the active network interfaces on a machine. Overall, it provided a comprehensive understanding of these networking and system configuration concepts.
+The project covered various topics related to networking and system configuration. It included explanations of concepts such as `localhost/127.0.0.1`, `0.0.0.0`, and `/etc/hosts`. The project also covered how to display the active network interfaces on a machine. Overall, it provided a comprehensive understanding of these networking and system configuration concepts.
 
 ## Resources:books:
 ***Read or watch:***
