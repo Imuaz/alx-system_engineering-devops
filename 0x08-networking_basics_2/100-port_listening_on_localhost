@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
 # Listens on port 98 on localhost.
-
-ncat -l -p 98 -k -c "echo 'Connected!'" 2>/dev/null
+nc -l localhost 98
