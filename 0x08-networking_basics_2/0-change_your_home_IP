@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Change IP
+
+new_hosts_file="$HOME/hosts.new"
+sudo sed -e 's/127.0.0.1/127.0.0.2/g' /etc/hosts | sudo tee "$new_hosts_file" >/dev/null
+echo '8.8.8.8 facebook.com' | sudo tee -a "$new_hosts_file" >/dev/null
+sudo cp -f "$new_hosts_file" /etc/hosts
