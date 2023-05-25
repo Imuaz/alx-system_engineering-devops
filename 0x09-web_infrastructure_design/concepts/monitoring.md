@@ -1,4 +1,4 @@
-* **Monitoring**
+- **Monitoring**
 
 Just as the heart monitor in a hospital that is making sure that a patient’s heart is beating and at the right beat, software monitoring will watch computer metrics, record them, and emit an alert if something is unusual or that could make the computer not work properly happens.
 
@@ -8,11 +8,13 @@ Web stack monitoring can be broken down into 2 categories:
   - Application monitoring: getting data about your running software and making sure it is behaving as expected
   - Server monitoring: getting data about your virtual or physical server and making sure they are not overloaded (could be CPU, memory, disk or network overload)
 
-* **Here are few famous monitoring tools:**
+- **Here are few famous monitoring tools:**
   - ***NewRelic***
+
   NewRelic requires you to add a piece of JavaScript to your website, this agent will collect information and send it back to the New Relic servers. It will give you a detailed analysis of how quickly your website loads in a browser, with a detailed analysis at every level of the stack. If the website is loading too slowly or users are experiencing error (500), there is a feature that allows you to trigger an alert. NewRelic now does much more than this, I’ll let you discover the rest.
 
   - ***DataDog***
+  
   DataDog allows you to measure and monitor everything with graphs. It gathers performance data from all your application components. The service has a lot of integrations. You usually just need to properly configure your alert and you are good to go with solid monitoring coverage.
 
   - ***Uptime Robot***
