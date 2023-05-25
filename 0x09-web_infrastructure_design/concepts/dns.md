@@ -14,7 +14,7 @@ DNS is, in simple words, the technology that translates human-adapted, text-base
   - [What’s an NS Record?](https://support.dnsimple.com/articles/ns-record/)
   - [What’s an SOA Record?](https://support.dnsimple.com/articles/soa-record/)
 
-* **The root domain and sub domain - differences**
+## The root domain and sub domain - differences
 
 A root domain is the parent domain to a sub domain, and its name is not, and can not be divided by a dot.
 
