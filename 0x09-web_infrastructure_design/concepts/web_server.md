@@ -1,4 +1,4 @@
-* **Web Server**
+# Web Server
 
 ***Do not mix up web server and server.***
 A web server is a software that delivers web pages. A server is an actual computer.
