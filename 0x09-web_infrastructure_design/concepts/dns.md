@@ -1,4 +1,4 @@
-* **Basics**
+## Basics
 
 DNS is, in simple words, the technology that translates human-adapted, text-based domain names to machine-adapted, numerical-based IP:
   - [Learn everything about DNS in cartoon](https://howdns.works/)
@@ -8,7 +8,7 @@ DNS is, in simple words, the technology that translates human-adapted, text-base
     - [MX](https://en.m.wikipedia.org/wiki/MX_record)
     - [TXT](https://en.m.wikipedia.org/wiki/TXT_record)
 
-* **Advanced**
+## Advanced
 
   - [Use DNS to scale with round-robin DNS](https://www.dnsknowledge.com/whatis/round-robin-dns/)
   - [What’s an NS Record?](https://support.dnsimple.com/articles/ns-record/)
