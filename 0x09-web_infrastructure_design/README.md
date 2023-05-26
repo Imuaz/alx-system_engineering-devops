@@ -29,7 +29,8 @@ In the sysadmin/devops track projects, the project requirements included the abi
 
 ## Tasks:page_with_curl:
 
-<h3>0. Simple web stack</h3>
+### 0. Simple web stack
+
 - [0-simple_web_stack](./0-simple_web_stack): A designed single-server web infrastructure that is capable of hosting a website accessible through the domain `www.foobar.com`. The infrastructure utilizes a shared resource model, where both the database and application server components leverage the CPU, RAM, and SSD resources provided by the server.
   It is important to note that the current configuration does not include any firewalls or SSL certificates for network protection. While the infrastructure efficiently serves the website, it is recommended to implement appropriate security measures, such as firewalls and SSL certificates, to safeguard the server's network and ensure the confidentiality and integrity of data transmission.
 
@@ -65,7 +66,8 @@ In the sysadmin/devops track projects, the project requirements included the abi
 - Cannot scale if too much incoming traffic.
   - The issue "Cannot scale if too much incoming traffic" means that the single-server infrastructure is unable to handle a large influx of requests effectively, resulting in performance degradation or downtime.
 
-<h3>1. Distributed web infrastructure</h3>
+### 1. Distributed web infrastructure
+
 - [1-distributed_web_infrastructure](./1-distributed_web_infrastructure): A designed three-server web infrastructure for `www.foobar.com` includes a web server (Nginx), an application server, a load balancer (HAproxy), and a MySQL database. Nginx serves static files and handles incoming requests, while HAproxy distributes traffic across the servers for optimal resource utilization. The application server hosts the code base, generating dynamic content and executing server-side logic. The MySQL database efficiently manages and stores the website's data. This infrastructure design ensures improved performance, scalability, and fault tolerance by distributing the workload, utilizing specialized components, and implementing a robust database management system. Overall, it enables a smooth and responsive website experience for users while accommodating growth and providing reliability.
 
 **some specifics about this infrastructure:**
@@ -89,6 +91,7 @@ In the sysadmin/devops track projects, the project requirements included the abi
 **issues with this infrastructure:**
 - Where are SPOF
   - The potential single points of failure (SPOFs) in this infrastructure are the load balancer and the database server.
+    
     If the load balancer fails, it can disrupt the distribution of incoming traffic to the web and application servers, resulting in service unavailability.To mitigate this, implementing redundancy or high availability for the load balancer, such as using multiple load balancers in a failover configuration, can ensure continuous traffic distribution even if one load balancer fails.
 
     Similarly, If the database server experiences issues or downtime, it can lead to data unavailability and impact the functionality of the website. Implementing a replicated or clustered database setup can address this issue. With replication, data is replicated across multiple database servers, providing redundancy and allowing for failover to a replica server in case the primary database server fails.
@@ -99,4 +102,4 @@ In the sysadmin/devops track projects, the project requirements included the abi
 - No monitoring
   - The absence of monitoring in the infrastructure hinders the ability to track performance, identify issues, and ensure smooth operation. It increases the risk of undetected problems, downtime, and degraded performance, impacting user experience and hindering timely troubleshooting and optimization. Monitoring is vital for proactive issue identification and maintaining a reliable and high-performing infrastructure.
 
-**2. Secured and monitored web infrastructure**
+### 2. Secured and monitored web infrastructure
