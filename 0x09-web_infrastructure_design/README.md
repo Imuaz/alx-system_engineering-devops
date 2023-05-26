@@ -103,3 +103,48 @@ In the sysadmin/devops track projects, the project requirements included the abi
   - The absence of monitoring in the infrastructure hinders the ability to track performance, identify issues, and ensure smooth operation. It increases the risk of undetected problems, downtime, and degraded performance, impacting user experience and hindering timely troubleshooting and optimization. Monitoring is vital for proactive issue identification and maintaining a reliable and high-performing infrastructure.
 
 ### 2. Secured and monitored web infrastructure
+- [2-secured_and_monitored_web_infrastructure](./2-secured_and_monitored_web_infrastructure): A three-server web infrastructure designed for hosting the website `www.foobar.com` focuses on security, encrypted traffic, and monitoring. It consists of a load balancer server equipped with three firewalls for enhanced security, serving an SSL certificate for HTTPS access to `www.foobar.com`. This load balancer distributes incoming traffic across two application servers, ensuring redundancy and load balancing. All communication is secured with SSL/TLS encryption. The infrastructure is monitored by three monitoring clients, collecting data for monitoring services to track performance and maintain overall system health. This setup provides a secure, scalable, and closely monitored environment for hosting the website.
+
+**some specifics about this infrastructure:**
+- For every additional element, why you are adding it
+  - A **database server** is added alongside the application servers and positioned behind the load balancer. Its purpose is to store and manage website data, including user information, content, and other relevant data.
+
+- What are firewalls for
+  - In the context of this infrastructure, firewalls are used to enhance security. They act as a barrier between the server and the external network, controlling incoming and outgoing network traffic based on predefined security rules. Firewalls help protect the servers and the network infrastructure from unauthorized access, malicious attacks, and potential security threats. By implementing firewalls, the infrastructure can selectively allow or block traffic, providing an additional layer of defense against unauthorized access and potential vulnerabilities.
+
+- Why is the traffic served over HTTPS
+  - Traffic is served over HTTPS in this infrastructure to ensure secure and encrypted communication, protecting user data and maintaining trust.
+
+- What monitoring is used for
+  - Monitoring in this infrastructure is used to track server performance, availability, traffic load, and security, ensuring optimal system operation and proactive management.
+
+- How the monitoring tool is collecting data
+  - The monitoring tool collects data by actively monitoring and analyzing various metrics and logs from the servers and network devices. It uses specific monitoring agents or software installed on the servers, which gather real-time information about resource utilization, performance metrics, system logs, and network traffic. The monitoring tool collects and aggregates this data, providing insights and alerts based on predefined thresholds and rules. Additionally, the monitoring tool may utilize APIs or integration with other tools and services to gather relevant data and enrich the monitoring capabilities.
+
+- Explain what to do if you want to monitor your web server QPS
+  - To monitor the QPS (Queries Per Second) of your web server:
+    1. Choose a suitable monitoring tool that supports QPS monitoring.
+    2. Configure the monitoring tool to collect and track the QPS metric from the web server.
+    3. Set appropriate thresholds for QPS.
+    4. Enable alerting to receive notifications when QPS exceeds the thresholds.
+    5. Analyze the monitoring data and take necessary actions to optimize performance or scale the infrastructure based on the QPS trends.
+
+**issues with this infrastructure:**
+- Why terminating SSL at the load balancer level is an issue
+  - SSL certificates play a crucial role in encrypting traffic between web servers and the external network, ensuring privacy, integrity, and identification. They prevent security risks like man-in-the-middle attacks and network sniffing. However, terminating SSL at the load balancer level in this infrastructure poses issues by compromising end-to-end encryption, increasing the attack surface for backend servers, and potentially violating compliance and privacy requirements.
+
+- Why having only one MySQL server capable of accepting writes is an issue
+  - Having only one MySQL server capable of accepting writes in this infrastructure can lead to several issues. Firstly, it becomes a single point of failure, risking data inconsistencies or loss if the server experiences downtime. Additionally, scalability and performance are limited as the single server can become a bottleneck under increased workload. High availability is compromised without redundancy, causing service interruptions during server failures or maintenance. Moreover, data integrity and disaster recovery are at risk without multiple servers for write operations. To address these concerns, implementing a solution with multiple MySQL servers capable of accepting writes, such as database replication or clustering, is essential for improved availability, scalability, performance, and data integrity.
+
+- Why having servers with all the same components (database, web server and application server) might be a problem
+  - Having servers with all the same components (database, web server, and application server) in this infrastructure can present challenges. It limits the ability to optimize each component for its specific requirements, potentially resulting in suboptimal performance and scalability. Scaling can become complex as adding resources would involve redundant components across all servers. Maintenance becomes more intricate, requiring coordination for updates and troubleshooting. Furthermore, the lack of flexibility hampers the ability to adapt to evolving needs or integrate new technologies. Adopting a specialized and modular approach allows for better resource allocation, scalability, streamlined maintenance, and adaptability to changing requirements.
+
+### 3. Scale up
+- [3-scale_up](./3-scale_up): A web infrastructure `Scale up` is designed to meet the requirements of security, encrypted traffic, and monitoring. It consists of a single server that serves as the central component, along with a load balancer (HAproxy) configured as a cluster with another load balancer. The components of the infrastructure, including the web server, application server, and database, are split across dedicated servers. This separation allows for efficient resource utilization and easier management. Security measures are implemented, including SSL/TLS encryption, to protect the communication between clients and servers. Additionally, monitoring capabilities are incorporated to track the system's performance, availability, and overall health, ensuring prompt identification and resolution of any issues that may arise.
+
+***readme:***
+- [Application server vs web server](https://www.nginx.com/resources/glossary/application-server-vs-web-server/)
+
+**some specifics about this infrastructure:**
+- For every additional element, why you are adding it
+  - Adding an Intrusion Detection System (IDS) between the load balancer and the web server enhances security by detecting potential intrusions or malicious activities in the network.
