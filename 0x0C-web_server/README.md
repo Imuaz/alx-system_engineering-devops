@@ -1,4 +1,4 @@
-# 0x0C. Web server:earth:
+# 0x0C. Web server:globe_with_meridians:
 
 **Concepts**
 
@@ -54,3 +54,49 @@ The project covered the main aspects of web servers and DNS. It explored the rol
 - It is not allowed to use systemctl for restarting a process
 
 ## Tasks:page_with_curl:
+
+**0. Transfer a file to your server**
+- [0-transfer_file](./0-transfer_file): Bash script that transfers a file from our client to a server:
+  - Accepts 4 parameters
+    1. The path to the file to be transferred
+    2. The IP of the server we want to transfer the file to
+    3. The username `scp` connects with
+    4. The path to the SSH private key that `scp` uses
+  - Display `Usage: 0-transfer_file PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY` if less than 3 parameters passed
+  - `scp` transfers the file to the user home directory `~/`
+  - Strict host key checking should be disabled when using `scp`
+
+**1. Install nginx web server**
+- Readme:
+  - [-y on apt-get command](https://askubuntu.com/questions/672892/what-does-y-mean-in-apt-get-y-install-command)
+- [1-install_nginx_web_server](./1-install_nginx_web_server): Bash script that configures a new Ubuntu machine with Nginx, the script will be run on the server `web_01`
+  - Installs `nginx` on `web-01` server
+  - Nginx should be listening on port 80
+  - When querying Nginx at its root `/` with a GET request (requesting a page) using `curl`, it returns a page that contains the string `Hello World!`
+  - it does not use `systemctl` for restarting `nginx`
+
+**2. Setup a domain name**
+- [2-setup_a_domain_name](./2-setup_a_domain_name): A text file that contains the domain name set up for the server through .TECH
+
+**3. Redirection**
+- Readme:
+  - [Replace a line with multiple lines with sed](https://stackoverflow.com/questions/26041088/sed-replace-line-with-multiline-variable)
+  - [3-redirection](./3-redirection): Bash script containing commands to automatically configure a Ubuntu machine with Nginx.
+    - It Configures the Nginx server so that `/redirect_me` redirects to another page
+    - The redirection will be a “301 Moved Permanently”
+    - it uses the `1-install_nginx_web_server`, to write `3-redirection` so that it configures the Ubuntu machine
+
+**4. Not found page 404**
+- [4-not_found_page_404](./4-not_found_page_404): Bash script that configures Nginx server to have a custom 404 page that contains the string `Ceci n'est pas une page`.
+  - the page returns an HTTP 404 error code
+  - the page contains the string `Ceci n'est pas une page`.
+  - It writes `4-not_found_page_404` using `3-redirection` so that it configures the brand new Ubuntu machine.
+
+**5. Install Nginx web server (w/ Puppet)**
+- [7-puppet_install_nginx_web_server.pp](./7-puppet_install_nginx_web_server.pp): Bash script that installs and configures an Nginx server using Puppet instead of Bash,
+  - Nginx will be listening on port 80
+  - When querying Nginx at its root `/` with a GET request (requesting a page) using curl, it returns a page that contains the string `Hello World!`
+  - The redirection will be a “301 Moved Permanently”
+  - the file should be a Puppet manifest containing commands to automatically configure an Ubuntu machine to respect above requirements
+
+    :+1:
