@@ -12,7 +12,9 @@ In normal server operations, the kernel may initiate child processes, and other 
 
 To view all running processes along with their child processes in a “tree” format, use the following command:
 
-```$ ps axf``
+```
+$ ps axf
+```
 
 For more information about child processes, see this [documentation](https://www.gnu.org/software/libc/manual/html_node/Processes.html#Processes)
 
