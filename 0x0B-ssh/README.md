@@ -53,7 +53,7 @@ This project covered several key topics related to servers and SSH. It began wit
 - [2-ssh_config](./2-ssh_config): The SSH configuration file sets to use the private key `~/.ssh/school` for authentication without requiring a password.
 
 **3. Let me in!**
-- [0x0B-ssh](./0x0B-ssh): An SSH public key added to the server to grant access permissions.
+- An SSH public key added to the server to grant access permissions.
 
 **4. Client configuration file (w/ Puppet)**
 - [100-puppet_ssh_config.pp](./100-puppet_ssh_config.pp): The SSH configuration file sets to use the private key `~/.ssh/school` for authentication without requiring a password using Puppet.
