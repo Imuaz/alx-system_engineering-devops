@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Script to install Nginx server and write content to the root
-apt-get update -y
-apt-get install nginx -y
+sudo apt-get update -y
+sudo apt-get install nginx -y
 sudo echo "Hello World!" > /var/www/html/index.html
-systemctl restart nginx
+sudo systemctl restart nginx
