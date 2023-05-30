@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Script to install Nginx server and write content to the root
+apt-get update -y
+apt-get install nginx -y
+echo "Holberton School" | sudo tee /var/www/html/index.html > /dev/null
+systemctl restart nginx
+
