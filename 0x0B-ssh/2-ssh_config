@@ -1,0 +1,15 @@
+# Configuration file set for a client to connect without password
+host *
+#   ForwardAgent no
+#   ForwardX11 no
+#   ForwardX11Trusted yes
+#   PasswordAuthentication no
+#   HostbasedAuthentication no
+#   GSSAPIAuthentication yes
+#   GSSAPIDelegateCredentials no
+#   GSSAPIKeyExchange no
+#   GSSAPITrustDNS no
+#   BatchMode no
+#   CheckHostIP yes
+#   AddressFamily any
+#   ConnectTimeout 0
