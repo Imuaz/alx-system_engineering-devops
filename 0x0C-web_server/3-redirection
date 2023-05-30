@@ -1,22 +1,21 @@
 #!/usr/bin/env bash
-# Configures an Nginx server for redirection to another page
-# Update package manager and install Nginx
+# Install NGINX and configure redirection
+# Update package list
 apt-get update
 apt-get install -y nginx
-echo "Hello World!" > /var/www/html/index.html
 
-cat > /etc/nginx/sites-available/redirect.conf <<EOF
+echo "Holberton School" | sudo tee /var/www/html/index.html
+
+cat << EOF > /etc/nginx/sites-available/default
 server {
-    listen 80 default_server;
+    listen 80;
     listen [::]:80 default_server;
     root /var/www/html;
-    index index.html;
+    index index.html index.htm;
 
     location /redirect_me {
-        return 301 http://cuberule.com/;
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
     }
 }
 EOF
-ln -s /etc/nginx/sites-available/redirect.conf /etc/nginx/sites-enabled/
-
 systemctl restart nginx
