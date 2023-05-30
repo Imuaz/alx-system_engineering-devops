@@ -3,7 +3,7 @@
 # Update package manager and install Nginx
 apt-get update
 apt-get install -y nginx
-echo "Holberton School" > /var/www/html/index.html
+echo "Hello World!" > /var/www/html/index.html
 
 cat > /etc/nginx/sites-available/redirect.conf <<EOF
 server {
@@ -20,4 +20,3 @@ EOF
 ln -s /etc/nginx/sites-available/redirect.conf /etc/nginx/sites-enabled/
 
 systemctl restart nginx
-
