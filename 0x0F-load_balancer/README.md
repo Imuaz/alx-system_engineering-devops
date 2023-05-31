@@ -9,6 +9,7 @@ Ever wonder how Facebook, Linkedin, Twitter and other web giants are handling su
 ***Readme:***
   - [Load-balancing](https://www.thegeekstuff.com/2016/01/load-balancer-intro/)
   - [Load-balancing algorithms](https://community.f5.com/t5/technical-articles/intro-to-load-balancing-for-developers-the-algorithms/ta-p/273759)
+  -[redundancy](https://en.m.wikipedia.org/wiki/Redundancy_(engineering))
 
 - [Web stack debugging](./concepts/web_stack_debug.md)
 
