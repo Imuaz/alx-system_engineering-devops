@@ -6,18 +6,29 @@ exec { 'update':
 }
 
 package { 'nginx':
-  ensure => present,
+  ensure => 'installed',
+  provider => 'apt',
   require => Exec['update'],
 }
 
-file_line { 'http_header':
-  path  => '/etc/nginx/nginx.conf',
-  line  => 'add_header X-Served-By "%{::hostname}";',
-  match => '^http {',
-  notify => Exec['run'],
+file { '/var/www/html/index.html':
+  ensure => 'file',
+  content => 'Hello World!',
 }
 
-exec { 'run':
-  command => '/usr/sbin/service nginx restart',
-  refreshonly => true,
+exec { 'allow_nginx':
+  command => '/usr/sbin/ufw allow "Nginx HTTP"',
+  unless => '/usr/sbin/ufw status | grep "Nginx HTTP"',
+}
+
+file_line { 'redirect':
+  ensure => 'present',
+  path   => '/etc/nginx/sites-available/default',
+  line   => 'rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;',
+  notify => Service['nginx'],
+}
+
+service { 'nginx':
+  ensure => 'running',
+  enable => true,
 }
