@@ -1,28 +1,29 @@
 #!/usr/bin/env bash
 # Installs Nginx with the identical configuration to the previous task server  `web-01`
-apt-get update
-apt-get install -y nginx
 
-mkdir -p /var/www/html
-touch /var/www/html/index.html
-echo "Hello World!" > /var/www/html/index.html
-touch /var/www/html/404.html
-echo "Ceci n'est pas une page" > /var/www/html/404.html
+sudo apt remove --purge nginx nginx-full nginx-common -y
+sudo apt update
+sudo apt install nginx -y
+sudo touch /var/www/html/index.html
 
-printf %s "server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    add_header X-Served-By $HOSTNAME;
-    root   /var/www/html;
-    index  index.html index.htm;
-    location /redirect_me {
-        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-    }
-    error_page 404 /404.html;
-    location /404 {
-      root /var/www/html;
-      internal;
-    }
-}" > /etc/nginx/sites-available/default
+echo "Hello World!" | sudo tee /var/www/html/index.html
+sudo touch /var/www/html/error404.html
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/error404.html
 
-service nginx restart
+printf %s 'server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        root /var/www/html;
+        index index.html;
+        error_page 404 /error404.html;
+        server_name _;
+        
+        add_header X-Served-By $hostname;
+        write ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4/ permanent;
+        location / {
+          try_files $uri $uri/ =404;
+        }
+}
+' | sudo tee /etc/nginx/sites-available/default
+
+sudo service nginx restart
