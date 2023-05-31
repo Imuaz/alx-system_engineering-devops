@@ -16,3 +16,4 @@ This repository contains programs written for the System Engineering and DevOps 
 - [0x09. Web infrastructure design](./0x09-web_infrastructure_design)
 - [0x0B. SSH](./0x0B-ssh)
 - [0x0C. Web server](./0x0C-web_server)
+- [0x0F. Load balancer](./0x0F-load_balancer)
