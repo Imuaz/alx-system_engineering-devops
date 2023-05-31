@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 # Installs Nginx with the identical configuration to the previous task server  `web-01`
-
 sudo apt remove --purge nginx nginx-full nginx-common -y
 sudo apt update
 sudo apt install nginx -y
@@ -19,9 +18,9 @@ printf %s 'server {
         server_name _;
         
         add_header X-Served-By $hostname;
-        write ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4/ permanent;
-        location / {
-          try_files $uri $uri/ =404;
+        
+        location /redirect_me {
+           return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4/;
         }
 }
 ' | sudo tee /etc/nginx/sites-available/default
