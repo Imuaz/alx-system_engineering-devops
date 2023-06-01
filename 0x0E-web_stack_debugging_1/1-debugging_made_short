@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# debugging nginx (service (init) must say that nginx is not running) make the fix short and sweet.
+awk '{gsub("8080", "80")}1' /etc/nginx/sites-enabled/default > temp && mv temp /etc/nginx/sites-enabled/default
+service nginx restart && pkill -o nginx
