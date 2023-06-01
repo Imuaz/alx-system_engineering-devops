@@ -27,6 +27,6 @@ This is the first project in a series of web stack debugging projects. In these 
 
 ## Tasks:page_with_curl:
 **0. Give me a page!**
-- [0-give_me_a_page](./0-give_me_a_page): Bash script that runs Apache on a web server and gets to return a page containing `Hello Holberton` when querying the root of it (when curling port 80 returns a page containing `Hello Holberton`.
+- [0-give_me_a_page](./0-give_me_a_page): Bash script that runs [Apache](https://en.m.wikipedia.org/wiki/Apache_HTTP_Server) on a web server and gets to return a page containing `Hello Holberton` when querying the root of it (when curling port 80 returns a page containing `Hello Holberton`.
 
 :+1:
