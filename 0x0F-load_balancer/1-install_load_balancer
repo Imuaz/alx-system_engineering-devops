@@ -1,2 +1,15 @@
 #!/usr/bin/env bash
 # configures a HAproxy on a server of New Ubuntu machine
+
+SETUP="frontend myapp
+	bind *:80
+	default_backend myapp_servers
+backend myapp_servers
+	balance roundrobin
+	server 138923-web-01 54.160.108.69
+	server 138923-web-02 35.175.135.230
+"
+apt-get -y update
+apt-get -y install haproxy
+echo "$SETUP" >> /etc/haproxy/haproxy.cfg
+service haproxy restart
