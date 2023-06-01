@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# debugging nginx (service (init) must say that nginx is not running) make the fix short and sweet.
-
+# debugging nginx (service (init) must say that nginx is not running) make the
+# fix short and sweet.
 perl -i -pe 's/8080/80/g' /etc/nginx/sites-enabled/default
 service nginx restart
 pkill -o nginx
