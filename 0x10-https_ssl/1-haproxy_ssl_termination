@@ -44,7 +44,7 @@ backend web_servers
         server 138923-web-02 35.175.135.230 check
 
 frontend www-https
-    bind *:443 ssl crt /etc/letsencrypt/live/www.example.com/fullchain.pem
+    bind *:443 ssl crt /etc/letsencrypt/live/www.imuaz.tech/fullchain.pem
     http-response set-header X-Served-By %H
     default_backend web_servers
 
