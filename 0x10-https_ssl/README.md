@@ -33,14 +33,14 @@ The project explored various aspects of HTTPS SSL, focusing on its roles and the
 **0. World wide web**
 - [0-world_wide_web](./0-world_wide_web): Bash script that will display information about subdomains.
   - It accepts 2 arguments:
-    1. `domain`:
-      - type: string
-      - what: domain name to audit
-      - mandatory: yes
-    2. `subdomain`:
-      - type: string
-      - what: specific subdomain to audit
-      - mandatory: no
+    - `domain`:
+      1. type: string
+      2. what: domain name to audit
+      3. mandatory: yes
+    - `subdomain`:
+      1. type: string
+      2. what: specific subdomain to audit
+      3. mandatory: no
   - Output: `The subdomain [SUB_DOMAIN] is a [RECORD_TYPE] record and points to [DESTINATION]`
   - When only the parameter `domain` is provided, it displays information for its subdomains `www`, `lb-01`, `web-01` and `web-02` - in this specific order.
   - When passing `domain` and `subdomain` parameters, it displays information for the specified subdomain
