@@ -44,6 +44,6 @@ backend web_servers
         server 138923-web-02 35.175.135.230 check
 
 frontend www-https
-         bind *:443 ssl crt /etc/haproxy/certs/codingphysics.tech.pem
+         bind *:443 ssl crt /etc/haproxy/certs/imuaz.tech.pem
          use_backend letsencrypt-backend if letsencrypt-acl
          default_backend web_servers
