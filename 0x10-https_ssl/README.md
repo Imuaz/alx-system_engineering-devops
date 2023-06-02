@@ -33,11 +33,11 @@ The project explored various aspects of HTTPS SSL, focusing on its roles and the
 **0. World wide web**
 - [0-world_wide_web](./0-world_wide_web): Bash script that will display information about subdomains.
   - It accepts 2 arguments:
-    - `domain`:
+    1. `domain`:
       - type: string
       - what: domain name to audit
       - mandatory: yes
-    - `subdomain`:
+    2. `subdomain`:
       - type: string
       - what: specific subdomain to audit
       - mandatory: no
