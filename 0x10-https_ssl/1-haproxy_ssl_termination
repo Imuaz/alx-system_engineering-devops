@@ -40,13 +40,16 @@ frontend http-in
 
 backend web_servers
         balance roundrobin
+        redirect scheme https if !{ ssl_fc }
         server 138923-web-01 54.160.108.69 check
         server 138923-web-02 35.175.135.230 check
 
 frontend www-https
-    bind *:443 ssl crt /etc/letsencrypt/live/www.imuaz.tech/fullchain.pem
-    http-response set-header X-Served-By %H
-    default_backend web_servers
+        bind *:443 ssl crt /etc/haproxy/certs/lb-01.borntocode.tech.pem
+	 reqadd X-Forwarded-Proto:\ https
+	 acl letsencrypt-acl path_beg /.well-known/acme-challenge/
+	 use_backend letsencrypt-backend if letsencrypt-acl
+	 default_backend web-backend
 
 backend web_servers
     server webserver1 127.0.0.1:80
