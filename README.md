@@ -17,3 +17,4 @@ This repository contains programs written for the System Engineering and DevOps 
 - [0x0B. SSH](./0x0B-ssh)
 - [0x0C. Web server](./0x0C-web_server)
 - [0x0F. Load balancer](./0x0F-load_balancer)
+- [0x0A. Configuration management](./0x0A-configuration_management)
