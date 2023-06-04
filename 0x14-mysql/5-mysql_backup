@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Generates a MySQL dump and creates a compressed archive out of it
+# Set the MySQL root password as the first command-line argument
+mysql_root_password="$1"
+
+# Create a backup directory with the current date as the directory name
+backup_directory=$(date +%d-%m-%Y)
+mkdir "$backup_directory"
+
+# Export all databases using mysqldump and save it in the backup directory
+mysqldump -uroot -p"$mysql_root_password" --all-databases > "$backup_directory/backup.sql"
+
+# Create a tarball archive of the backup directory
+tar -czf "$backup_directory.tar.gz" "$backup_directory"
+
+# Optional: Delete the backup directory after creating the tarball
+rm -r "$backup_directory"
