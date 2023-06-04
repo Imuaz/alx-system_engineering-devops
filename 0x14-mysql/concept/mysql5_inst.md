@@ -36,4 +36,4 @@ Now install mysql 5.7
 sudo apt install -f mysql-client=5.7* mysql-community-server=5.7* mysql-server=5.7*
 ```
 
-<p align ="right"> Copyright © 2023 ALX, All rights reserved<\p>
+<p align ="right"> Copyright © 2023 ALX, All rights reserved</p>
