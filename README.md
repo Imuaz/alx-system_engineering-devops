@@ -15,6 +15,7 @@ This repository contains programs written for the System Engineering and DevOps 
 - [0x08. Networking basics #1](./0x08-networking_basics_2)
 - [0x09. Web infrastructure design](./0x09-web_infrastructure_design)
 - [0x10. HTTPS SSL](./0x10-https_ssl)
+- [0x12. Web stack debugging #2](./0x12-web_stack_debugging_2)
 - [0x14. MySQL](./0x14-mysql)
 - [0x0A. Configuration management](./0x0A-configuration_management)
 - [0x0B. SSH](./0x0B-ssh)
