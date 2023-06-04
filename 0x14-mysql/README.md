@@ -30,4 +30,16 @@ The project covered several key aspects of databases, including their main role 
 - The second line of all Bash scripts should be a comment explaining what is the script doing
 
 ## Tasks:page_with_curl:
+**4. Setup a Primary-Replica infrastructure using MySQL**
+- [4-mysql_configuration_primary](./4-mysql_configuration_primary): file contains the configuration for MySQL primary database.
+- [4-mysql_configuration_replica](./4-mysql_configuration_replica): file contains the configuratio    n for MySQL replica database.
 
+**5. MySQL backup**
+- [5-mysql_backup](./5-mysql_backup):Bash script that generates a MySQL dump and creates a compressed archive out of it.
+  - `backup.sql` is the name of MySQL dump
+  - MySQL dump has been compressed to a `tar.gz` archive
+  - the archive has the following name format: `day-month-year.tar.gz`
+  - user to connect to the MySQL database should be `root`
+- The Bash script accepts one argument that is the password used to connect to the MySQL database
+
+:-1:
