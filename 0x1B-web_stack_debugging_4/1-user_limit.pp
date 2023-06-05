@@ -1,17 +1,19 @@
 # Enable the user holberton to login and open files without error
-file { '/etc/security/limits.conf':
-  ensure  =>  present,
-  content =>  template('module/limits.conf.erb'),
+package { 'augeas-tools':
+  ensure =>  installed,
 }
 
-exec { 'increase-file-limits-for-holberton-user':
-  command     =>  'sed -i "s/holberton hard nofile 5/holberton hard nofile\
-  50000/g; s/holberton soft nofile 4/holberton \
-  soft nofile 50000/g" /etc/security/limits.conf',
-  path        =>  ['/usr/local/bin', '/bin'],
-  refreshonly =>  true,
+augeas { 'increase-file-limits-for-holberton-user':
+  incl    =>  '/etc/security/limits.conf',
+  lens    =>  'Limits.lns',
+  changes =>  [
+    "set *[self::user = 'holberton']/hard '50000'",
+    "set *[self::user = 'holberton']/soft '50000'",
+  ],
+  notify  =>  Exec['reload-systemd'],
 }
-service { 'sshd':
-  ensure  =>  running,
-  require =>  Exec['increase-file-limits-for-holberton-user'],
+
+exec { 'reload-systemd':
+  command     =>  'systemctl daemon-reload',
+  refreshonly =>  true,
 }
