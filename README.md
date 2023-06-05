@@ -25,5 +25,6 @@ This repository contains programs written for the System Engineering and DevOps 
 - [0x0E. Web stack debugging #1](./0x0E-web_stack_debugging_1)
 - [0x0F. Load balancer](./0x0F-load_balancer)
 - [0x0A. Configuration management](./0x0A-configuration_management)
+- [0x1B. Web stack debugging #4](./0x1B-web_stack_debugging_4)
 - [0x17. Web stack debugging #3](./0x17-web_stack_debugging_3)
 - [0x18. Webstack monitoring](./0x18-webstack_monitoring)
