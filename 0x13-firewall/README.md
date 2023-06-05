@@ -4,6 +4,7 @@
 
 ## Resources:books:
 - [What is a firewall](https://en.m.wikipedia.org/wiki/Firewall_(computing)))
+- [ufw redirects 8080/TCP to 80/TCP](https://www.cyberciti.biz/faq/how-to-configure-ufw-to-forward-port-80443-to-internal-server-hosted-on-lan/)
 
 ## Tasks:page_with_curl:
 **0. Block all incoming traffic but**
