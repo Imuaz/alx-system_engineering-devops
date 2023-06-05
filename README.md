@@ -16,6 +16,7 @@ This repository contains programs written for the System Engineering and DevOps 
 - [0x09. Web infrastructure design](./0x09-web_infrastructure_design)
 - [0x10. HTTPS SSL](./0x10-https_ssl)
 - [0x12. Web stack debugging #2](./0x12-web_stack_debugging_2)
+- [0x13. Firewall](./0x13-firewall)
 - [0x14. MySQL](./0x14-mysql)
 - [0x0A. Configuration management](./0x0A-configuration_management)
 - [0x0B. SSH](./0x0B-ssh)
@@ -25,3 +26,4 @@ This repository contains programs written for the System Engineering and DevOps 
 - [0x0F. Load balancer](./0x0F-load_balancer)
 - [0x0A. Configuration management](./0x0A-configuration_management)
 - [0x17. Web stack debugging #3](./0x17-web_stack_debugging_3)
+- [0x18. Webstack monitoring](./0x18-webstack_monitoring)
