@@ -1,10 +1,9 @@
 #!/usr/bin/python3
 """
-Function that query subscribers on a givensubreddit of Redit API.
+Module for function that query subscribers on a givensubreddit of Redit API.
 """
 
 import requests
-"""Module for task 0"""
 
 def number_of_subscribers(subreddit):
     """Queries the Reddit API and returns the number of subscribers
