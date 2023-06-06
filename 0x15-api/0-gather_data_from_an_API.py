@@ -1,32 +1,33 @@
 #!/usr/bin/python3
 """
-Python script that retrieves to-do list information for a given employee ID
-using a REST API.
+For a given employee ID, returns information about their TODO list progress
 """
+
 import requests
 import sys
 
-
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        employee_id = sys.argv[1]
-        base_url = "https://jsonplaceholder.typicode.com/"
+    user_id = sys.argv[1]
+    user_response = requests.get(f"https://jsonplaceholder.typicode.com/users/\
+                                 {user_id}")
+    todos_response = requests.get("https://jsonplaceholder.typicode.com/todos")
 
-        user_response = requests.get(f"{base_url}users/{employee_id}")
-        todos_response = requests.get(f"{base_url}todos?userId={employee_id}")
+    if user_response.status_code == 200 and todos_response.status_code == 200:
+        user = user_response.json()
+        todos = todos_response.json()
 
-        if user_response.status_code == 200 and todos_response.status_code ==\
-                200:
-            user = user_response.json()
-            todos = todos_response.json()
+        total_tasks = 0
+        completed_tasks = []
 
-            completed_tasks = [task for task in todos if task["completed"]]
-            count = len(completed_tasks)
-            all_tasks = len(todos)
+        for task in todos:
+            if task.get('userId') == int(user_id):
+                total_tasks += 1
+                if task.get('completed'):
+                    completed_tasks.append(task)
 
-            print(f"Employee {user['name']} is done with tasks({count}\
-                  /{all_tasks}):")
-            for task in completed_tasks:
-                print(f"\t{task['title']}")
-            else:
-                print("Failed to retrieve data from the API.")
+        print(f"Employee {user['name']} is done with tasks\
+              ({len(completed_tasks)}/{total_tasks}):")
+        for task in completed_tasks:
+            print(f"\t{task['title']}")
+    else:
+        print("Failed to retrieve data from the API.")
