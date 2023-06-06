@@ -12,8 +12,7 @@ def recurse(subreddit, hot_list=[], after=None,):
 
     headers = {"User-Agent": "My-User-Agent"}
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-    reqst_params = {}
-    reqst_params.update({"limit": 100, "after": after})
+    reqst_params = {"limit": 100, "after": after}
 
     response = requests.get(
         url, headers=headers, reqst_params, allow_redirects=False)
