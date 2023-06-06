@@ -18,16 +18,16 @@ def recurse(subreddit, hot_list=[], after=None,):
         headers=headers, reqst_params=reqst_params, allow_redirects=False)
 
     if response.status_code == 200:
-        json_data = response.json()
-        data = json_data['data']
-        children = data['children']
-        hot_list.extend(child['data']['title'] for child in children)
-        after = data['after']
-        if not after:
-            return hot_list
-        return recurse(subreddit, hot_list, after)
+        data = response.json().get('data')
+        posts = data.get('children')
+        hot_titles = [post.get('data').get('title') for post in posts]
+        next_page = data.get('after')
+        if not next_page:
+            return hot_titles
+        return recurse(subreddit, hot_titles, next_page)
     else:
         return None
+
 
 
 if __name__ == '__main__':
