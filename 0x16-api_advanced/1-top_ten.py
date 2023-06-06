@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-Task 1 of Advanced API Module
-"""
+"""Task 1 of Advanced API Module"""
 import requests
 import sys
 
