@@ -9,7 +9,8 @@ if __name__ == "__main__":
     userId = sys.argv[1]
     user = requests.get(f"https://jsonplaceholder.typicode.com/users/{userId}")
     name = user.json().get('username')
-    todos = requests.get('https://jsonplaceholder.typicode.com/todos')
+    todos = requests.get(
+        f"https://jsonplaceholder.typicode.com/todos?userId={userId}")
 
     filename = f"{userId}.csv"
     with open(filename, mode='w', newline='') as f:
@@ -17,9 +18,8 @@ if __name__ == "__main__":
         writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS",
                          "TASK_TITLE"])
         for task in todos.json():
-            if task.get('userId') == int(userId):
-                completed_status = str(task.get('completed'))
-                task_title = task.get('title')
-                writer.writerow([userId, name, completed_status, task_title])
+            completed_status = str(task.get('completed'))
+            task_title = task.get('title')
+            writer.writerow([userId, name, completed_status, task_title])
 
     print(f"Data exported to {filename}.")
