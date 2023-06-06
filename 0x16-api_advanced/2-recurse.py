@@ -15,7 +15,7 @@ def recurse(subreddit, hot_list=[], after=None,):
     reqst_params = {"limit": 100, "after": after}
 
     response = requests.get(
-        url=url,
+        url,
         headers=headers,
         reqst_params=reqst_params,
         allow_redirects=False)
