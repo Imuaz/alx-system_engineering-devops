@@ -7,27 +7,31 @@ import requests
 import sys
 
 if __name__ == "__main__":
-    user_id = sys.argv[1]
-    user_response = requests.get(f"https://jsonplaceholder.typicode.com/users/\
-                                 {user_id}")
-    todos_response = requests.get("https://jsonplaceholder.typicode.com/todos")
+    if len(sys.argv) < 2 or not sys.argv[1].isdigit():
+        print("Usage: python script.py <employee_id>")
+        sys.exit(1)
 
-    if user_response.status_code == 200 and todos_response.status_code == 200:
-        user = user_response.json()
-        todos = todos_response.json()
+    employee_id = sys.argv[1]
+    base_url = "https://jsonplaceholder.typicode.com/"
 
-        total_tasks = 0
+    user_response = requests.get(
+        base_url + f"users/{employee_id}"
+    ).json()
+    todos_response = requests.get(
+        base_url + f"todos?userId={employee_id}"
+    ).json()
 
-        completed_tasks = []
+    employee_name = user_response.get("name")
 
-        for task in todos:
-            if task.get('userId') == int(user_id):
-                total_tasks += 1
-                if task.get('completed'):
-                    completed_tasks.append(task)
-                    print(f"Employee {user['name']} is done with tasks\
-                          ({len(completed_tasks)}/{total_tasks}):")
-                    for task in completed_tasks:
-                        print(f"\t{task['title']}")
-    else:
-        print("Failed to retrieve data from the API.")
+    completed_tasks = [
+        todo.get("title") for todo in todos_response if todo.get("completed")
+    ]
+    num_tasks_done = len(completed_tasks)
+    total_num_tasks = len(todos_response)
+
+    print(
+        f"Employee {employee_name} is done with tasks"
+        f"({num_tasks_done}/{total_num_tasks}):"
+    )
+    for task in completed_tasks:
+        print(f"\t{task}")
