@@ -1,24 +1,32 @@
 #!/usr/bin/python3
-"""Returns to-do list information for a given employee ID."""
+"""
+Python script that retrieves to-do list information for a given employee ID
+using a REST API.
+"""
 import requests
 import sys
 
+
 if __name__ == "__main__":
-    base_url = "https://jsonplaceholder.typicode.com/"
-    employee_id = sys.argv[1]
+    if len(sys.argv) > 1:
+        employee_id = sys.argv[1]
+        base_url = "https://jsonplaceholder.typicode.com/"
 
-    user_response = requests.get(base_url + f"users/{employee_id}")
-    todos_response =\
-        requests.get(base_url + "todos", params={"userId": employee_id})
+        user_response = requests.get(f"{base_url}users/{employee_id}")
+        todos_response = requests.get(f"{base_url}todos?userId={employee_id}")
 
-    if user_response.status_code == 200 and todos_response.status_code == 200:
-        user = user_response.json()
-        todos = todos_response.json()
+        if user_response.status_code == 200 and todos_response.status_code ==\
+                200:
+            user = user_response.json()
+            todos = todos_response.json()
 
-        completed = [t["title"] for t in todos if t["completed"]]
-        print(f"Employee {user['name']} is done with tasks ({len(completed)}\
-              /{len(todos)}):")
-        for task in completed:
-            print(f"\t{task}")
-    else:
-        print("Failed to retrieve data from the API.")
+            completed_tasks = [task for task in todos if task["completed"]]
+            count = len(completed_tasks)
+            all_tasks = len(todos)
+
+            print(f"Employee {user['name']} is done with tasks({count}\
+                  /{all_tasks}):")
+            for task in completed_tasks:
+                print(f"\t{task['title']}")
+            else:
+                print("Failed to retrieve data from the API.")
