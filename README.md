@@ -25,6 +25,7 @@ This repository contains programs written for the System Engineering and DevOps 
 - [0x13. Firewall](./0x13-firewall)
 - [0x14. MySQL](./0x14-mysql)
 - [0x15. API](./0x15-api)
+- [0x16. API advanced](./0x16-api_advanced)
 - [0x17. Web stack debugging #3](./0x17-web_stack_debugging_3)
 - [0x18. Webstack monitoring](./0x18-webstack_monitoring)
 - [0x1B. Web stack debugging #4](./0x1B-web_stack_debugging_4)
