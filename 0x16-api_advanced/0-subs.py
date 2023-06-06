@@ -1,9 +1,8 @@
 #!/usr/bin/python3
+import requests
 """Module for function that query subscribers on a given subreddit of
 Redit API.
 """
-
-import requests
 
 
 def number_of_subscribers(subreddit):
