@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """Module for task 0"""
-import requests
 
 
 def number_of_subscribers(subreddit):
@@ -15,6 +14,7 @@ def number_of_subscribers(subreddit):
     if the subreddit is invalid or an error occurs
     during the API request.
     """
+    import requests
 
     url = f"https://www.reddit.com/r/{subreddit}/about.json"
     headers = {"User-Agent": "My-User-Agent"}
