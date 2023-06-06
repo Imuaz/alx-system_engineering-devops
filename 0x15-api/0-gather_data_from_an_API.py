@@ -17,6 +17,7 @@ if __name__ == "__main__":
         todos = todos_response.json()
 
         total_tasks = 0
+
         completed_tasks = []
 
         for task in todos:
@@ -24,10 +25,9 @@ if __name__ == "__main__":
                 total_tasks += 1
                 if task.get('completed'):
                     completed_tasks.append(task)
-
-        print(f"Employee {user['name']} is done with tasks\
-              ({len(completed_tasks)}/{total_tasks}):")
-        for task in completed_tasks:
-            print(f"\t{task['title']}")
+                    print(f"Employee {user['name']} is done with tasks\
+                          ({len(completed_tasks)}/{total_tasks}):")
+                    for task in completed_tasks:
+                        print(f"\t{task['title']}")
     else:
         print("Failed to retrieve data from the API.")
