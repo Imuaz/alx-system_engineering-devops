@@ -21,34 +21,35 @@ def recurse(subreddit, hot_list=[], after=None,):
         params=params,
         allow_redirects=False)
 
-    try:
-        results = response.json()
-        if response.status_code == 404:
-            raise Exception
-    except Exception:
-        print("")
-        return
+    if response.status_code == 200:
+        data = response.json()['data']
+        posts = data['children']
+        hot_list.extend([post['data']['title']
+                         for post in posts])
+        next_page = response.json()['data']['after']
+        if not next_page:
+            word_counts = {}
+            search_str = " ".join(hot_list)
+            for word in word_list:
+                count = search_str.lower().count(word.lower())
+                if count != 0:
+                    word_counts[word.lower()] = count
+            sorted_word_counts = dict(sorted(
+                word_counts.items(), key=lambda item: (-item[1], item[0])))
+            for key, value in sorted_word_counts.items():
+                print("{}: {}".format(key, value))
+            return 0
+        else:
+            return count_words(subreddit, word_list, hot_list, next_page)
 
-    results = results.get("data")
-    after = results.get("after")
-    count += results.get("dist")
-    for c in results.get("children"):
-        title = c.get("data").get("title").lower().split()
-        for word in word_list:
-            if word.lower() in title:
-                times = len([t for t in title if t == word.lower()])
-                if word not in instances:
-                    instances[word] = times
-                else:
-                    instances[word] += times
 
-    if after is None:
-        if len(instances) == 0:
-            print("")
-            return
+if __name__ == '__main__':
+    import sys
 
-        instances = sorted(instances.items(), key=lambda kv: (-kv[1], kv[0]))
-        for k, v in instances:
-            print("{}: {}".format(k, v))
-    else:
-        count_words(subreddit, word_list, instances, after, count)
+    if len(sys.argv) > 1:
+        subreddit = sys.argv[1]
+        if len(sys.argv) > 2:
+            word_list = sys.argv[2].split()
+        else:
+            word_list = []
+        count_words(subreddit, word_list, [])
