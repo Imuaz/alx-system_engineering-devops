@@ -14,21 +14,21 @@ def recurse(subreddit, hot_list=[], after=None,):
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
     reqst_params = {"limit": 100, "after": after}
 
-    response = requests.get( url,
-        headers=headers, reqst_params=reqst_params, allow_redirects=False)
+    response = requests.get(url,
+                            headers=headers, reqst_params=reqst_params,
+                            allow_redirects=False)
 
     if response.status_code == 200:
         data = response.json()['data']
-        children = data['children']
-        hot_list.extend([child['data']['title']
-                         for child in children])
+        posts = data['posts']
+        hot_list.extend([post['data']['title']
+                         for post in posts])
         after = response.json()['data']['after']
         if not after:
             return hot_list
         return recurse(subreddit, hot_list, after)
     else:
         return None
-
 
 
 if __name__ == '__main__':
