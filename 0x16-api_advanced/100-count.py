@@ -1,14 +1,14 @@
 #!/usr/bin/python3
 """
-Task 2 of Advanced APIs Module
+Task 3 of Advanced APIs Module
 """
 import requests
 import sys
 
 
 def recurse(subreddit, hot_list=[], after=None,):
-    """Queries Reddit API and prints the titles of all hot posts listed
-    for a given subreddit."""
+    """Queries Reddit API, parses the titles of all hot articles, and prints a
+    sorted count of given keywords (case-insensitive, delimited by spaces."""
 
     headers = {"User-Agent": "My-User-Agent"}
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
@@ -21,20 +21,34 @@ def recurse(subreddit, hot_list=[], after=None,):
         params=params,
         allow_redirects=False)
 
-    if response.status_code == 200:
-        data = response.json()['data']
-        posts = data['children']
-        hot_list.extend([post['data']['title']
-                         for post in posts])
-        next_page = response.json()['data']['after']
-        if not next_page:
-            return hot_list
-        return recurse(subreddit, hot_list, next_page)
+    try:
+        results = response.json()
+        if response.status_code == 404:
+            raise Exception
+    except Exception:
+        print("")
+        return
+
+    results = results.get("data")
+    after = results.get("after")
+    count += results.get("dist")
+    for c in results.get("children"):
+        title = c.get("data").get("title").lower().split()
+        for word in word_list:
+            if word.lower() in title:
+                times = len([t for t in title if t == word.lower()])
+                if word not in instances:
+                    instances[word] = times
+                else:
+                    instances[word] += times
+
+    if after is None:
+        if len(instances) == 0:
+            print("")
+            return
+
+        instances = sorted(instances.items(), key=lambda kv: (-kv[1], kv[0]))
+        for k, v in instances:
+            print("{}: {}".format(k, v))
     else:
-        return None
-
-
-if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        subred = sys.argv[1]
-        recurse(subred, [])
+        count_words(subreddit, word_list, instances, after, count)
