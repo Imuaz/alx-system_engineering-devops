@@ -28,26 +28,25 @@ def count_words(subreddit, wordlist, hot_list=[], after=None,):
                          for post in posts])
         next_page = response.json()['data']['after']
         if not next_page:
-            word_counts = {}
+            wordcounts = {}
             search_str = " ".join(hot_list)
-            for word in word_list:
-                word_counts[word.lower()] =
-                search_str.lower().count(word.lower())
-            sorted_word_counts = sorted(word_counts.items(), key=lambda item: (
-                -item[1], item[0]))
-            for key, value in sorted_word_counts:
+            wordcounts = {word.lower(): search_str.lower().count(
+                word.lower()) for word in wordlist}
+            sorted_wordcounts = dict(
+                sorted(wordcounts.items(),
+                       key=lambda item: (-item[1], item[0])))
+            for key, value in sorted_wordcounts.items():
                 if value != 0:
                     print("{}: {}".format(key, value))
-            return 0
-        else:
-            return None
+            return (0)
+        return count_words(subreddit, wordlist, hot_list, after)
+    else:
+        return None
 
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        subreddit = sys.argv[1]
-        if len(sys.argv) > 2:
-            word_list = sys.argv[2].split()
-        else:
-            word_list = []
-        count_words(subreddit, word_list, hot_list, after)
+    if len(sys.argv) > 0:
+        subred = sys.argv[1]
+        if (len(sys.argv) > 1):
+            wordlist = sys.argv[2].split()
+        count_words(subred, wordlist, [])
