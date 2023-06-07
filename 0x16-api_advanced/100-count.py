@@ -39,7 +39,7 @@ def count_words(subreddit, wordlist, hot_list=[], after=None,):
                 if value != 0:
                     print("{}: {}".format(key, value))
             return (0)
-        return count_words(subreddit, wordlist, hot_list, after)
+        return count_words(subreddit, wordlist, hot_list, next_page)
     else:
         return None
 
