@@ -18,7 +18,7 @@ def recurse(subreddit, hot_list=[], after=None,):
     response = requests.get(
         url=url,
         headers=headers,
-        params=params,
+        params,
         allow_redirects=False)
 
     if response.status_code == 200:
