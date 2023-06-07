@@ -24,10 +24,10 @@ def recurse(subreddit, hot_list=[], after=None,):
         data = response.json().get('data')
         children = data.get('children')
         hot_list = [post.get('data').get('title') for post in children]
-        next_page = data.get('after')
-        if not next_page:
+        after = data.get('after')
+        if not after:
             return hot_list
-        return recurse(subreddit, hot_list, next_page)
+        return recurse(subreddit, hot_list, after)
     else:
         return None
 
