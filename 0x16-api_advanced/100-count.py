@@ -8,64 +8,64 @@ import sys
 
 
 def add_title(dictionary, hot_posts):
-    """Queries Reddit API,"""
-    if not hot_posts:
+    """ Adds item into a list """
+    if len(hot_posts) == 0:
         return
 
-    title = hot_posts.pop(0)['data']['title'].split()
+    title = hot_posts[0]['data']['title'].split()
     for word in title:
-        for key in dictionary:
-            if re.search(rf"\b{re.escape(key)}\b", word, re.I):
+        for key in dictionary.keys():
+            c = re.compile("^{}$".format(key), re.I)
+            if c.findall(word):
                 dictionary[key] += 1
-
+    hot_posts.pop(0)
     add_title(dictionary, hot_posts)
 
 
 def recurse(subreddit, dictionary, after=None):
-    """ Queries the Reddit API """
+    """ Queries to Reddit API """
+    u_agent = 'Mozilla/5.0'
     headers = {
-        'User-Agent': 'Mozilla/5.0'
+        'User-Agent': u_agent
     }
+
     params = {
         'after': after
     }
-    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
 
-    response = requests.get(url,
-                            headers=headers,
-                            params=params,
-                            allow_redirects=False)
+    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
+    res = requests.get(url,
+                       headers=headers,
+                       params=params,
+                       allow_redirects=False)
 
-    if response.status_code != 200:
+    if res.status_code != 200:
         return None
 
-    data = response.json()
-    hot_posts = data['data']['children']
+    dic = res.json()
+    hot_posts = dic['data']['children']
     add_title(dictionary, hot_posts)
-    after = data['data']['after']
+    after = dic['data']['after']
     if not after:
         return
-    recurse(subreddit, dictionary, after)
+    recurse(subreddit, dictionary, after=after)
 
 
 def count_words(subreddit, word_list):
-    """ Initializes the function """
-    dictionary = {word: 0 for word in word_list}
+    """ Init function """
+    dictionary = {}
+
+    for word in word_list:
+        dictionary[word] = 0
 
     recurse(subreddit, dictionary)
 
-    sorted_dict = sorted(
-        dictionary.items(), key=lambda kv: kv[1], reverse=True)
+    lis = sorted(dictionary.items(), key=lambda kv: kv[1])
+    lis.reverse()
 
-    for word, count in sorted_dict:
-        if count != 0:
-            print(f"{word}: {count}")
-
-    print("")
-
-
-if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        subreddit = sys.argv[1]
-        word_list = sys.argv[2:] if len(sys.argv) > 2 else []
-        count_words(subreddit, word_list)
+    if len(lis) != 0:
+        for item in lis:
+            if item[1] is not 0:
+                print("{}: {}".format(item[0], item[1]))
+    else:
+        print("")
