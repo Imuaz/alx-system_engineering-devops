@@ -31,16 +31,16 @@ def recurse(subreddit, hot_list=[], after=None,):
             word_counts = {}
             search_str = " ".join(hot_list)
             for word in word_list:
-                count = search_str.lower().count(word.lower())
-                if count != 0:
-                    word_counts[word.lower()] = count
-            sorted_word_counts = dict(sorted(
-                word_counts.items(), key=lambda item: (-item[1], item[0])))
-            for key, value in sorted_word_counts.items():
-                print("{}: {}".format(key, value))
+                word_counts[word.lower()] =
+                search_str.lower().count(word.lower())
+            sorted_word_counts = sorted(word_counts.items(), key=lambda item: (
+                -item[1], item[0]))
+            for key, value in sorted_word_counts:
+                if value != 0:
+                    print("{}: {}".format(key, value))
             return 0
         else:
-            return count_words(subreddit, word_list, hot_list, next_page)
+            return None
 
 
 if __name__ == '__main__':
@@ -50,4 +50,4 @@ if __name__ == '__main__':
             word_list = sys.argv[2].split()
         else:
             word_list = []
-        count_words(subreddit, word_list, [])
+        count_words(subreddit, word_list, hot_list, after)
