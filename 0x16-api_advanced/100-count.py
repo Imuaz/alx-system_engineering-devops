@@ -3,50 +3,48 @@
 Task 3 of Advanced APIs Module
 """
 import requests
-import sys
 
 
-def count_words(subreddit, wordlist, hot_list=[], after=None,):
+def count_words(subreddit, word_list, instances={}, after="", count=0):
     """Queries Reddit API, parses the titles of all hot articles, and prints a
     sorted count of given keywords (case-insensitive, delimited by spaces."""
+    url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
+    headers = {
+        "User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /u/bdov_)"
+    }
+    params = {
+        "after": after,
+        "count": count,
+        "limit": 100
+    }
+    response = requests.get(url, headers=headers, params=params,
+                            allow_redirects=False)
+    try:
+        results = response.json()
+        if response.status_code == 404:
+            raise Exception
+    except Exception:
+        print("")
+        return
 
-    headers = {"User-Agent": "My-User-Agent"}
-    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-    params = {}
-    params.update({"limit": 100, "after": after})
+    results = results.get("data")
+    after = results.get("after")
+    count += results.get("dist")
+    for c in results.get("children"):
+        title = c.get("data").get("title").lower().split()
+        for word in word_list:
+            if word.lower() in title:
+                times = len([t for t in title if t == word.lower()])
+                if instances.get(word) is None:
+                    instances[word] = times
+                else:
+                    instances[word] += times
 
-    response = requests.get(
-        url,
-        headers=headers,
-        params=params,
-        allow_redirects=False)
-
-    if response.status_code == 200:
-        data = response.json()['data']
-        posts = data['children']
-        hot_list.extend([post['data']['title']
-                         for post in posts])
-        next_page = response.json()['data']['after']
-        if not next_page:
-            wordcounts = {}
-            search_str = " ".join(hot_list)
-            wordcounts = {word.lower(): search_str.lower().count(
-                word.lower()) for word in wordlist}
-            sorted_wordcounts = dict(
-                sorted(wordcounts.items(),
-                       key=lambda item: (-item[1], item[0])))
-            for key, value in sorted_wordcounts.items():
-                if value != 0:
-                    print("{}: {}".format(key, value))
-            return (0)
-        return count_words(subreddit, wordlist, hot_list, next_page)
+    if after is None:
+        if len(instances) == 0:
+            print("")
+            return
+        instances = sorted(instances.items(), key=lambda kv: (-kv[1], kv[0]))
+        [print("{}: {}".format(k, v)) for k, v in instances]
     else:
-        return None
-
-
-if __name__ == '__main__':
-    if len(sys.argv) > 0:
-        subred = sys.argv[1]
-        if (len(sys.argv) > 1):
-            wordlist = sys.argv[2].split()
-        count_words(subred, wordlist, [])
+        count_words(subreddit, word_list, instances, after, count)
