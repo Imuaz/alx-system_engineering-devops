@@ -44,8 +44,6 @@ def recurse(subreddit, hot_list=[], after=None,):
 
 
 if __name__ == '__main__':
-    import sys
-
     if len(sys.argv) > 1:
         subreddit = sys.argv[1]
         if len(sys.argv) > 2:
