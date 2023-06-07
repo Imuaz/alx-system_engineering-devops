@@ -24,7 +24,7 @@ def recurse(subreddit, hot_list=[], after=None,):
         data = response.json().get('data')
         posts = data.get('posts')
         hot_titles = [post.get('data').get('title') for post in posts]
-        next_page = data.get('next_page')
+        next_page = data.get('after')
         if not next_page:
             return hot_titles
         return recurse(subreddit, hot_titles, next_page)
