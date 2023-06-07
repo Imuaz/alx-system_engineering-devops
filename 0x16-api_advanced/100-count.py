@@ -6,7 +6,7 @@ import requests
 import sys
 
 
-def recurse(subreddit, hot_list=[], after=None,):
+def count_words(subreddit, wordlist, hot_list=[], after=None,):
     """Queries Reddit API, parses the titles of all hot articles, and prints a
     sorted count of given keywords (case-insensitive, delimited by spaces."""
 
