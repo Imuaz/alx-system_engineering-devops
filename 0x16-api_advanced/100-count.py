@@ -2,6 +2,7 @@
 """
 Task 3 of Advanced APIs Module
 """
+
 import requests
 
 
@@ -12,9 +13,9 @@ def count_words(subreddit, word_list, after=None, counts=None):
     if not counts:
         counts = {word: 0 for word in word_list}
 
-    headers = {"User-Agent": "Mozilla/5.0"}
+    headers = {"User-Agent": "user-agent"}
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-    params = {"limit": 100, "after": after} if after else {}
+    params = {"after": after} if after else {}
 
     response = requests.get(
         url,
