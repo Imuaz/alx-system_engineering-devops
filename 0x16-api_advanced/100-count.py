@@ -12,7 +12,7 @@ def count_words(subreddit, word_list, sort_list=[], after=None):
     based on count and alphabetically if counts are equal
     for a given subreddit."""
     params = {"limit": 100, "after": after}
-    headers = {"User-Agent": "Mozilla/5.0"}
+    headers = {"User-Agent": "User-Agent"}
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
 
     response = requests.get(
@@ -25,7 +25,7 @@ def count_words(subreddit, word_list, sort_list=[], after=None):
         data = response.json()['data']
         children = data['children']
         sort_list.extend([child['data']['title']
-                             for child in children])
+                          for child in children])
         after = response.json()['data']['after']
         if not after:
             word_counts = {}
