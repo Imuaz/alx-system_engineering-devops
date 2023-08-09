@@ -50,4 +50,4 @@ if __name__ == '__main__':
         subred = sys.argv[1]
         if (len(sys.argv) > 1):
             wordlist = sys.argv[2].split()
-        count_words(subred, wordlist, [])
+        count_words(subred, wordlist)
