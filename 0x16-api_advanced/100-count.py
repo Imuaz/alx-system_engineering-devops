@@ -27,7 +27,7 @@ def count_words(subreddit, word_list, sort_list=[], after=None):
         sort_list.extend([child['data']['title']
                              for child in children])
         after = response.json()['data']['after']
-        if after is None:
+        if not after:
             word_counts = {}
             find_str = " ".join(sort_list)
             word_counts = {word.lower(): find_str.lower().count(
@@ -41,7 +41,7 @@ def count_words(subreddit, word_list, sort_list=[], after=None):
             return (0)
         return count_words(subreddit, word_list, sort_list, after)
     else:
-        return
+        return None
 
 
 if __name__ == '__main__':
