@@ -43,6 +43,8 @@ def count_words(subreddit, word_list, after=None, counts=None):
                     print(f"{word}: {count}")
         else:
             count_words(subreddit, word_list, after, counts)
+    else:
+        return
 
 
 if __name__ == '__main__':
