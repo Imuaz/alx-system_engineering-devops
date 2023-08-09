@@ -2,7 +2,7 @@
 """
 Task 3 of Advanced APIs Module
 """
-import sys
+import re
 import requests
 
 
@@ -10,12 +10,12 @@ def count_words(subreddit, word_list, after=None, counts=None):
     """Sorts and prints the word counts in descending order
     based on count and alphabetically if counts are equal
     for a given subreddit."""
-    if not counts:
+    if counts is None:
         counts = {word: 0 for word in word_list}
 
     headers = {"User-Agent": "Mozilla/5.0"}
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-    params = {"after": after} if after else {}
+    params = {"after": after}
 
     response = requests.get(
         url,
@@ -30,24 +30,15 @@ def count_words(subreddit, word_list, after=None, counts=None):
         for child in children:
             title = child["data"]["title"].lower().split()
             for word in word_list:
-                word = word.lower()
-                counts[word] += title.count(word)
+                counts[word] += sum(1 for w in title if
+                                    re.match(f'^{re.escape(word)}$', w, re.I))
 
-        after = data['data']['after']
-
+        after = data["data"]["after"]
         if after is None:
-            sorted_counts = sorted(counts.items(), key=lambda item:
-                                   (-item[1], item[0]))
+            sorted_counts = sorted(counts.items(),
+                                   key=lambda item: (-item[1], item[0]))
             for word, count in sorted_counts:
                 if count > 0:
                     print(f"{word}: {count}")
         else:
             count_words(subreddit, word_list, after, counts)
-
-
-if __name__ == '__main__':
-    if len(sys.argv) > 0:
-        subred = sys.argv[1]
-        if (len(sys.argv) > 1):
-            wordlist = sys.argv[2].split()
-        count_words(subred, wordlist)
