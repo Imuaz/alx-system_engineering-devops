@@ -2,7 +2,7 @@
 """
 Task 3 of Advanced APIs Module
 """
-
+import sys
 import requests
 
 
@@ -13,7 +13,7 @@ def count_words(subreddit, word_list, after=None, counts=None):
     if not counts:
         counts = {word: 0 for word in word_list}
 
-    headers = {"User-Agent": "user-agent"}
+    headers = {"User-Agent": "Mozilla/5.0"}
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
     params = {"after": after} if after else {}
 
@@ -43,8 +43,6 @@ def count_words(subreddit, word_list, after=None, counts=None):
                     print(f"{word}: {count}")
         else:
             count_words(subreddit, word_list, after, counts)
-    else:
-        return
 
 
 if __name__ == '__main__':
