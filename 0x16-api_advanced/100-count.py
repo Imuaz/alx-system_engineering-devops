@@ -1,7 +1,4 @@
-#!/usr/bin/python3
-"""
-Task 3 of Advanced APIs Module
-"""
+
 import requests
 import sys
 
