@@ -10,7 +10,7 @@ def count_words(subreddit, word_list, after=None, counts=None):
     based on count and alphabetically if counts are equal
     for a given subreddit."""
     if not counts:
-        counts = {}
+        counts = {word: 0 for word in word_list}
 
     headers = {"User-Agent": "Mozilla/5.0"}
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
@@ -23,24 +23,25 @@ def count_words(subreddit, word_list, after=None, counts=None):
         allow_redirects=False)
 
     if response.status_code == 200:
-        data = response.json()["data"]
-        after = data.get("after")
-        children = data.get("children")
+        data = response.json()
+        children = data["data"]["children"]
 
         for child in children:
-            title = child["data"]["title"].lower()
+            title = child["data"]["title"].lower().split()
             for word in word_list:
-                word_count = title.count(word.lower())
-                if word_count > 0:
-                    counts[word] = counts.get(word, 0) + word_count
+                word = word.lower()
+                counts[word] += title.count(word)
 
-        if after:
-            return count_words(subreddit, word_list, after, counts)
+        after = data['data']['after']
 
-        sorted_counts = sorted(counts.items(), key=lambda x: (-x[1], x[0]))
-
-        for word, count in sorted_counts:
-            print(f"{word.lower()}: {count}")
+        if after is None:
+            sorted_counts = sorted(counts.items(), key=lambda item:
+                                   (-item[1], item[0]))
+            for word, count in sorted_counts:
+                if count > 0:
+                    print(f"{word}: {count}")
+        else:
+            count_words(subreddit, word_list, after, counts)
     else:
         return
 
