@@ -3,19 +3,17 @@
 Task 3 of Advanced APIs Module
 """
 import re
+import sys
 import requests
 
 
-def count_words(subreddit, word_list, after=None, counts=None):
+def count_words(subreddit, word_list, sort_list=[], after=None):
     """Sorts and prints the word counts in descending order
     based on count and alphabetically if counts are equal
     for a given subreddit."""
-    if counts is None:
-        counts = {word: 0 for word in word_list}
-
+    params = {"limit": 100, "after": after}
     headers = {"User-Agent": "Mozilla/5.0"}
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-    params = {"after": after}
 
     response = requests.get(
         url,
@@ -24,21 +22,31 @@ def count_words(subreddit, word_list, after=None, counts=None):
         allow_redirects=False)
 
     if response.status_code == 200:
-        data = response.json()
-        children = data["data"]["children"]
-
-        for child in children:
-            title = child["data"]["title"].lower().split()
-            for word in word_list:
-                counts[word] += sum(1 for w in title if
-                                    re.match(f'^{re.escape(word)}$', w, re.I))
-
-        after = data["data"]["after"]
+        data = response.json()['data']
+        children = data['children']
+        sort_list.extend([child['data']['title']
+                             for child in children])
+        after = response.json()['data']['after']
         if after is None:
-            sorted_counts = sorted(counts.items(),
-                                   key=lambda item: (-item[1], item[0]))
-            for word, count in sorted_counts:
-                if count > 0:
-                    print(f"{word}: {count}")
-        else:
-            count_words(subreddit, word_list, after, counts)
+            word_counts = {}
+            find_str = " ".join(sort_list)
+            word_counts = {word.lower(): find_str.lower().count(
+                word.lower()) for word in word_list}
+            sorted_word_counts = dict(
+                sorted(word_counts.items(),
+                       key=lambda item: (-item[1], item[0])))
+            for word, count in sorted_word_counts.items():
+                if count != 0:
+                    print("{}: {}".format(word, count))
+            return (0)
+        return count_words(subreddit, word_list, sort_list, after)
+    else:
+        return
+
+
+if __name__ == '__main__':
+    if len(sys.argv) > 0:
+        subred = sys.argv[1]
+        if (len(sys.argv) > 1):
+            word_list = sys.argv[2].split()
+        count_words(subred, word_list, [])
